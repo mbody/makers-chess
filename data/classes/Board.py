@@ -1,14 +1,14 @@
 import pygame
 
 from data.classes.Square import Square
-#from data.classes.pieces.Rook import Rook
-#from data.classes.pieces.Bishop import Bishop
-#from data.classes.pieces.Knight import Knight
-#from data.classes.pieces.Queen import Queen
-#from data.classes.pieces.King import King
-#from data.classes.pieces.Pawn import Pawn
+from data.classes.pieces.Rook import Rook
+from data.classes.pieces.Bishop import Bishop
+from data.classes.pieces.Knight import Knight
+from data.classes.pieces.Queen import Queen
+from data.classes.pieces.King import King
+from data.classes.pieces.Pawn import Pawn
 
-NB_SQUARES = 10
+NB_SQUARES = 8
 
 # Game state checker
 class Board:
@@ -34,7 +34,7 @@ class Board:
 
 		self.squares = self.generate_squares()
 
-		#self.setup_board()
+		self.setup_board()
 
 
 	def generate_squares(self):
@@ -57,7 +57,6 @@ class Board:
 		return self.get_square_from_pos(pos).occupying_piece
 
 	def setup_board(self):
-		"""
 		# iterating 2d list
 		for y, row in enumerate(self.config):
 			for x, piece in enumerate(row):
@@ -94,7 +93,7 @@ class Board:
 					elif piece[1] == 'P':
 						square.occupying_piece = Pawn(
 							(x, y), 'white' if piece[0] == 'w' else 'black', self
-						)"""
+						)
 
 
 
@@ -162,15 +161,13 @@ class Board:
 
 
 	def is_in_checkmate(self, color):
-		return False
 		output = False
-
 		for piece in [i.occupying_piece for i in self.squares]:
 			if piece != None:
 				if piece.notation == 'K' and piece.color == color:
 					king = piece
 
-		if king.get_valid_moves(self) == []:
+		if king is not None and king.get_valid_moves(self) == []:
 			if self.is_in_check(color):
 				output = True
 
