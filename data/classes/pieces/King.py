@@ -48,14 +48,15 @@ class King(Piece):
 			if self.color == 'white':
 				queenside_rook = board.get_piece_from_pos((0, 7))
 				kingside_rook = board.get_piece_from_pos((7, 7))
-				if queenside_rook != None:
-					if not queenside_rook.has_moved:
+				if queenside_rook != None and not queenside_rook.has_moved:
 						if [
 							board.get_piece_from_pos((i, 7)) for i in range(1, 4)
 						] == [None, None, None]:
-							return 'queenside'
-				if kingside_rook != None:
-					if not kingside_rook.has_moved:
+							testIsInCheck = [ board.is_in_check(self.color, board_change=[self.pos , (i, 7)]) for i in range(2, 4)]
+							#print(testIsInCheck)
+							if testIsInCheck == [False, False] :
+								return 'queenside'
+				if kingside_rook != None and not kingside_rook.has_moved:
 						if [
 							board.get_piece_from_pos((i, 7)) for i in range(5, 7)
 						] == [None, None]:

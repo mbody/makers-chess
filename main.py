@@ -14,7 +14,6 @@ def draw(display):
 	board.draw(display)
 	pygame.display.update()
 
-
 #if __name__ == '__main__':
 running = True
 while running:
@@ -27,11 +26,11 @@ while running:
             if event.button == 1:
                 board.handle_click(mx, my)
 
-    if board.is_in_checkmate('black'):
-        print('White wins!')
-        running = False
-    elif board.is_in_checkmate('white'):
-        print('Black wins!')
-        running = False
+    #if board.is_in_checkmate('black'):
+    #    print('White wins!')
+    #    running = False
+    #elif board.is_in_checkmate('white'):
+    #    print('Black wins!')
+    #    running = False
 
     draw(screen)
