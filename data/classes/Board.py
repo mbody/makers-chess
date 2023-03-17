@@ -12,12 +12,16 @@ NB_SQUARES = 8
 
 # Game state checker
 class Board:
+
+
 	def __init__(self, width, height):
 		self.width = width
 		self.height = height
 		self.tile_width = width // NB_SQUARES
 		self.tile_height = height // NB_SQUARES
 		self.selected_piece = None
+		self.current_cursor =  None # position du curseur
+		self.cursor_color = (255, 255, 0)
 		self.turn = 'white'
 
 		# try making it chess.board.fen()
@@ -102,6 +106,8 @@ class Board:
 		y = my // self.tile_height
 		clicked_square = self.get_square_from_pos((x, y))
 
+		self.current_cursor = clicked_square
+
 		if self.selected_piece is None:
 			if clicked_square.occupying_piece is not None:
 				if clicked_square.occupying_piece.color == self.turn:
@@ -180,5 +186,10 @@ class Board:
 			for square in self.selected_piece.get_valid_moves(self):
 				square.highlight = True
 
+	
 		for square in self.squares:
 			square.draw(display)
+
+		# si le curseur est positionné; alors on dessine le cadre jaune
+		if self.current_cursor is not None:
+			pygame.draw.rect(display, self.cursor_color, self.current_cursor.rect, 3)
